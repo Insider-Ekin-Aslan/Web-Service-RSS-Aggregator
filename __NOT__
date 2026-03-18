@@ -1,18 +1,18 @@
-ekin.aslan@ekinaslan-MacBook-Pro Web Service RSS Aggregator % go install github.com/sqlc-dev/sqlc/cmd/sqlc@latest    
-ekin.aslan@ekinaslan-MacBook-Pro Web Service RSS Aggregator % go install github.com/pressly/goose/v3/cmd/goose@latest
-
-sqlc version
+go install github.com/pressly/goose/v3/cmd/goose@latest
+go install github.com/sqlc-dev/sqlc/cmd/sqlc@latest
 
 goose version
+sqlc version
 
-
-ekin.aslan@ekinaslan-MacBook-Pro schema % goose postgres postgres://ekin.aslan:@localhost:5432/rss_aggregator up
-
+goose postgres postgres://ekin.aslan:@localhost:5432/rss_aggregator up
 sqlc generate
 
+---
 
 go get github.com/lib/pq
+go get github.com/google/uuid
 
+---
 
 
 GO MOD TIDY

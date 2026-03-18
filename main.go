@@ -1,17 +1,14 @@
 package main
 
 import (
-	"context"
 	"database/sql"
 	"log"
 	"net/http"
 	"os"
-	"time"
 
 	"github.com/Insider-Ekin-Aslan/Web-Application-RSS-Aggregator/internal/database"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/cors"
-	"github.com/google/uuid"
 	"github.com/joho/godotenv"
 
 	_ "github.com/lib/pq"
@@ -44,12 +41,12 @@ func main() {
 
 	config := apiConfig{Database: database.New(connection)}
 
-	config.Database.CreateUser(context.Background(), database.CreateUserParams{
-		ID:        uuid.New(),
-		CreatedAt: time.Now().UTC(),
-		UpdatedAt: time.Now().UTC(),
-		Name:      "test",
-	})
+	// config.Database.CreateUser(context.Background(), database.CreateUserParams{
+	// 	ID:        uuid.New(),
+	// 	CreatedAt: time.Now().UTC(),
+	// 	UpdatedAt: time.Now().UTC(),
+	// 	Name:      "test",
+	// })
 
 	router := chi.NewRouter()
 
@@ -66,7 +63,7 @@ func main() {
 
 	routerV1.Get("/healthz", handlerReadiness)
 	routerV1.Get("/error", handlerError)
-	routerV1.Post("/users", apiConfig.handlerCreateUser)
+	routerV1.Post("/users", config.handlerCreateUser)
 
 	router.Mount("/v1", routerV1)
 

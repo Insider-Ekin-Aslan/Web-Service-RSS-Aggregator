@@ -4,22 +4,38 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"time"
+
+	"github.com/Insider-Ekin-Aslan/Web-Application-RSS-Aggregator/internal/database"
+	"github.com/google/uuid"
 )
 
 func (config *apiConfig) handlerCreateUser(writer http.ResponseWriter, request *http.Request) {
 	type parameters struct {
-		Name string `name`
+		Name string `json:"name"`
 	}
 
 	decoder := json.NewDecoder(request.Body)
 
 	params := parameters{}
-	err := decoder.Decode(&params)
+	decoderError := decoder.Decode(&params)
 
-	if err != nil {
-		respondError(writer, 400, fmt.Sprintf("JSON parsing error. ERROR:", err))
+	if decoderError != nil {
+		respondError(writer, 400, fmt.Sprintf("JSON parsing error. ERROR: %v", decoderError))
 		return
 	}
 
-	respondJSON(writer, 200, struct{}{})
+	user, userError := config.Database.CreateUser(request.Context(), database.CreateUserParams{
+		ID:        uuid.New(),
+		CreatedAt: time.Now().UTC(),
+		UpdatedAt: time.Now().UTC(),
+		Name:      params.Name,
+	})
+
+	if userError != nil {
+		respondError(writer, 400, fmt.Sprintf("Couldn't create user. ERROR: %v", userError))
+		return
+	}
+
+	respondJSON(writer, 200, user)
 }
