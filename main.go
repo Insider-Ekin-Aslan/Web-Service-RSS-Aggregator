@@ -41,13 +41,6 @@ func main() {
 
 	config := apiConfig{Database: database.New(connection)}
 
-	// config.Database.CreateUser(context.Background(), database.CreateUserParams{
-	// 	ID:        uuid.New(),
-	// 	CreatedAt: time.Now().UTC(),
-	// 	UpdatedAt: time.Now().UTC(),
-	// 	Name:      "test",
-	// })
-
 	router := chi.NewRouter()
 
 	router.Use(cors.Handler(cors.Options{
@@ -64,6 +57,7 @@ func main() {
 	routerV1.Get("/healthz", handlerReadiness)
 	routerV1.Get("/error", handlerError)
 	routerV1.Post("/users", config.handlerCreateUser)
+	routerV1.Get("/users", config.handlerGetUser)
 
 	router.Mount("/v1", routerV1)
 

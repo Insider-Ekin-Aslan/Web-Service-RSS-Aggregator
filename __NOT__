@@ -12,8 +12,24 @@ sqlc generate
 go get github.com/lib/pq
 go get github.com/google/uuid
 
+fetch("http://localhost:8080/v1/users", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    name: "Ekin"
+  })
+})
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error(error));
+
 ---
 
+request.Context() is used for tracking HTTP request and is important for handling such as cancellation.
+
+>>>> Y|7:57:00
 
 GO MOD TIDY
 GO MOD VENDOR BAK
