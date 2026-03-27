@@ -57,7 +57,7 @@ func main() {
 	routerV1.Get("/healthz", handlerReadiness)
 	routerV1.Get("/error", handlerError)
 	routerV1.Post("/users", config.handlerCreateUser)
-	routerV1.Get("/users", config.handlerGetUser)
+	routerV1.Get("/users", config.middlewareAuth(config.handlerGetUser))
 
 	router.Mount("/v1", routerV1)
 
