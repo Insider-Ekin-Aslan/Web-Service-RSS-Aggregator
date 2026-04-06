@@ -15,21 +15,88 @@ go get github.com/google/uuid
 fetch("http://localhost:8080/v1/users", {
   method: "POST",
   headers: {
-    "Content-Type": "application/json"
+    "Content-Type": "application/json",
   },
   body: JSON.stringify({
-    name: "Ekin"
-  })
+    name: "Ekin",
+  }),
 })
-  .then(response => response.json())
-  .then(data => console.log(data))
-  .catch(error => console.error(error));
+  .then((response) => response.json())
+  .then((data) => console.log(data))
+  .catch((error) => console.error(error));
 
 ---
 
 request.Context() is used for tracking HTTP request and is important for handling such as cancellation.
 
->>>> Y|8:04:43--
+fetch("http://localhost:8080/v1/users", {
+  headers: {
+    Authorization: "API-Key 3df5f19b3f51feb581b652175b40500ebfae05398815dbcbfa9accebaa75884f",
+    "Content-Type": "application/json",
+  },
+})
+  .then((response) => response.json())
+  .then((data) => console.log(data))
+  .catch((error) => console.error(error));
+
+---
+
+fetch("http://localhost:8080/v1/feeds", {
+  method: "POST",
+  headers: {
+    Authorization: "API-Key 3df5f19b3f51feb581b652175b40500ebfae05398815dbcbfa9accebaa75884f",
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    name: "Ekin's Blog",
+    url: "https://ekin.codes",
+  }),
+})
+  .then((response) => response.json())
+  .then((data) => console.log(data))
+  .catch((error) => console.error(error));
+
+fetch("http://localhost:8080/v1/feeds", {
+  method: "POST",
+  headers: {
+    Authorization: "API-Key 3df5f19b3f51feb581b652175b40500ebfae05398815dbcbfa9accebaa75884f",
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    name: "Ekin's Blog",
+    url: "https://ekin.codes",
+  }),
+})
+  .then((response) => response.json())
+  .then((data) => console.log(data))
+  .catch((error) => console.error(error));
+
+fetch("http://localhost:8080/v1/feed-follows", {
+  method: "POST",
+  headers: {
+    Authorization: "API-Key 8da6e5a5343a6eb14e7fe39398470279baa1bf8c7b63baa2f3cce576dbd85228",
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    feed_id: "f57722b3-7e6e-4f1b-ab05-c303afd98adf",
+  }),
+})
+  .then((response) => response.json())
+  .then((data) => console.log(data))
+  .catch((error) => console.error(error));
+
+fetch("http://localhost:8080/v1/feed-follows", {
+  headers: {
+    Authorization: "API-Key 8da6e5a5343a6eb14e7fe39398470279baa1bf8c7b63baa2f3cce576dbd85228",
+    "Content-Type": "application/json",
+  },
+})
+  .then((response) => response.json())
+  .then((data) => console.log(data))
+  .catch((error) => console.error(error));
+
+
+>>>> Y|8:40:05--
 
 GO MOD TIDY
 GO MOD VENDOR BAK
